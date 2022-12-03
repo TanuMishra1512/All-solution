@@ -1,129 +1,150 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+#SORT COLORS
 
-# C extensions
-*.so
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        l=0
+        curr=0
+        r=len(nums)-1
+        while curr<=r:
+            if nums[curr] == 0:
+                nums[l],nums[curr] = nums[curr],nums[l]
+                l+=1
+                curr+=1
+            elif nums[curr] == 2:
+                nums[r],nums[curr] = nums[curr],nums[r]
+                r-=1
+            else:
+                curr+=1
+                
+# GROUP ANAGRAM
+                
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        finlist=[]
+        mydict={}
+        for a in strs:
+            key=''.join(sorted(a))
+            if key in mydict:
+               mydict[key]=mydict[key]+[a]
+            else:
+               mydict[key]=[a]
+        for value in mydict.values():
+            finlist.append(value)
+        return finlist
 
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-pip-wheel-metadata/
-share/python-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
+#SINGLE NUMBER
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        res=0
+        for n in nums:
+            res=n^res
+        return res
+        
+ # NEXT PERMUTATIONS
+ 
+ class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+       length=len(nums)
+       if length<=2:
+           return nums.reverse()
+       pointer = length-2
+       while pointer>=0 and nums[pointer]>=nums[pointer+1]:
+            pointer-=1
+       if pointer==-1:
+            return nums.reverse()
+       for x in range(length-1,pointer,-1):
+            if nums[pointer]<nums[x]:
+                nums[pointer],nums[x]=nums[x],nums[pointer]
+                break
+       nums[pointer+1:]=reversed(nums[pointer+1:])
+       
+ # ROTATE IMAGE
+ 
+ class Solution:
+    def nextPermutation(self, nums: List[int]) -> None:
+       length=len(nums)
+       if length<=2:
+           return nums.reverse()
+       pointer = length-2
+       while pointer>=0 and nums[pointer]>=nums[pointer+1]:
+            pointer-=1
+       if pointer==-1:
+            return nums.reverse()
+       for x in range(length-1,pointer,-1):
+            if nums[pointer]<nums[x]:
+                nums[pointer],nums[x]=nums[x],nums[pointer]
+                break
+       nums[pointer+1:]=reversed(nums[pointer+1:])
+       
+# DETERMINE IF TWO STRINGS ARE CLOSED
+ 
+ class Solution:
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        d1={}
+        d2={}
+        for i in word1:
+            if i not in d1:
+                d1[i]=1
+            else:
+                d1[i]=d1[i]+1
+        for i in word2:
+            if i not in d2:
+                d2[i]=1
+            else:
+                d2[i]=d2[i]+1
+        if sorted(d1.values())==sorted(d2.values()) and sorted(d1.keys())==sorted(d2.keys()):
+            return True
+        else:
+            return False
+            
+# SORT CHARACTERS BY FREQUENCY
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        dict={}
+        result=''
+        for i in s:
+            if i in dict:
+                dict[i]+=1
+            else:
+                dict[i]=1
+        s=sorted(dict,key=lambda x:dict[x],reverse=True)
+        for char in s:
+            result+=char*dict[char]
+        return result
+        
+# REVERSE VOWELS OF A STRING
+class Solution:
+    def reverseVowels(self, s: str) -> str:
+        lst=list(s)
+        vowel=set('aeiouAEIOU')
+        left=0
+        right=len(lst)-1
+        while (left<right):
+            if lst[left] not in vowel:
+                left+=1
+                continue
+            elif lst[right] not in vowel:
+                right-=1
+                continue
+            lst[left],lst[right]=lst[right],lst[left]
+            left+=1
+            right-=1
+        return ''.join(lst)
+     
+# ARTHMETIC PROGRESSION
 
-# PyInstaller
-#  Usually these files are written by a python script from a template
-#  before PyInstaller builds the exe, so as to inject date/other infos into it.
-*.manifest
-*.spec
+def checkIsAP(arr, n):
+    if (n == 1): 
+       return True
+     arr.sort()
+    d = arr[1] - arr[0]
+    for i in range(2, n):
+        if (arr[i] - arr[i-1] != d):
+            return False
+    return True
+ 
+ 
+    
+        
 
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-
-# Translations
-*.mo
-*.pot
-
-# Django stuff:
-*.log
-local_settings.py
-db.sqlite3
-db.sqlite3-journal
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
-
-# Jupyter Notebook
-.ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
-
-# pyenv
-.python-version
-
-# pipenv
-#   According to pypa/pipenv#598, it is recommended to include Pipfile.lock in version control.
-#   However, in case of collaboration, if having platform-specific dependencies or dependencies
-#   having no cross-platform support, pipenv may install dependencies that don't work, or not
-#   install all needed dependencies.
-#Pipfile.lock
-
-# PEP 582; used by e.g. github.com/David-OConnor/pyflow
-__pypackages__/
-
-# Celery stuff
-celerybeat-schedule
-celerybeat.pid
-
-# SageMath parsed files
-*.sage.py
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Spyder project settings
-.spyderproject
-.spyproject
-
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
-.dmypy.json
-dmypy.json
-
-# Pyre type checker
-.pyre/
+        
